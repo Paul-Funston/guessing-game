@@ -3,7 +3,7 @@
     JavaScript Basics
     Paul Funston
 
-    Working with Forms
+    Code-Breaker
 */
 
 function onEvent(event, selector, callback) {
@@ -22,69 +22,66 @@ function numFrom(a, b) {
     return Math.floor(Math.random() * (b - (a + 1)) + a);
 }
 
+function isNumber(input) {
+  let entry = input.trim();
+  if (entry.length > 0 && !isNaN(entry))
+      return true; 
+
+  return false;
+}
+
 
 
 let codeNum = '';
 
 function makeCode() {
-  while (codeNum.length < 4)
+  while (codeNum.length < 3)
     codeNum += numFrom(0, 9).toString();
+    codeNum = parseInt(codeNum);
+    console.log(codeNum);
 }
 
 window.addEventListener('load', () => {
   makeCode();
 });
 
-const keypad = select(".keypad");
-const keyNums = document.querySelectorAll('.key-num');
-const backSpace = select('.back');
-const clear = select('.clear');
-const submitGuess = select('.guess');
+
 const prevGuess = [];
 let curGuess = '';
+const guessNum = select('.guess-num');
+const makeGuess = select('.make-guess');
+const feedback = select('.feedback');
+let count = 0;
 
+console.log(makeGuess);
 
-function makeGuess(n) {
-  if (curGuess.length < 4)
-    curGuess += n.toString(); 
-    console.log(curGuess);
-}
+onEvent('click', makeGuess, () => {
+  let a = guessNum.value;
+  let guess = 0;
+  
+  if (isNumber(a)) {
+      count++;
+      guess = parseInt(a);  
+      if (guess === codeNum) {
+          feedback.innerText = `You got it in ${count} attempts! Try again?`;
+          count = 1;
+          // codeNum = '';
+          // makeCode();
+          // numberOne.value = '';
 
-keyNums.forEach(num => {
-  onEvent('click', num, function() {
-    makeGuess(num.value);
-    displayGuess();
-  })
+      } else if (guess > codeNum) {
+          feedback.innerText = `Too Big! Try a smaller number`;
+      } else {
+          feedback.innerText = `Too Small! Try a bigger number`;
+      }
+
+  } else 
+  feedback.innerText = `Please enter valid numbers`;
+  
 });
 
-onEvent('click', clear, function() {
-  curGuess = '';
-  console.log(curGuess);
-  displayGuess();
 
-});
 
-onEvent('click', backSpace, function() {
-  let guessLength = curGuess.length -1;
-  curGuess = curGuess.slice(0, guessLength)
-  console.log(curGuess);
-  displayGuess();
-
-});
-
-const guessRow = select('.row');
-const guessDigits = guessRow.childNodes;
-const digits = Object.values(guessDigits);
-const actualDigits = digits.filter(digit => digit.nodeName !== '#text') ;
-
-console.log(actualDigits);
-
-function displayGuess() {
-  for (let i = 0; i < curGuess.length; i++) {
-    actualDigits[i].innerHTML = curGuess[i];
-  }
-
-};
 
 
 

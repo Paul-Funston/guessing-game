@@ -16,7 +16,7 @@
   margin-inline: auto;
 }
    
-header, main, footer {
+header, main {
   background-color: rgb(var(--app-white));
 }
 
@@ -30,7 +30,7 @@ header {
 
 .game {
   display: grid;
-  height: calc(100vh - var(--app-header-height) - var(--app-footer-height));
+  height: calc(100vh - var(--app-header-height));
   place-items: center;
 }
 
@@ -47,19 +47,10 @@ header {
 }
 
 
-footer {
-  height: var(--app-footer-height);
-  display: grid;
-  place-items: center;
+.hidden {
+  display: none;
 }
 
-.keypad {
-  --app-box-side: 50px;
-  display: grid;
-  grid-template-columns: repeat(3, var(--app-box-side));
-  gap: 10px;
-  
-}
 
 .play-again {
   position: fixed;
