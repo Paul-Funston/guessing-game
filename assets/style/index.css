@@ -1,7 +1,8 @@
 @import './reset.css';
 
 :root {
-    --app-gray: 40 40 40;
+    --app-gray-dark: 40 40 40;
+    --app-gray-light: 140 140 140;
     --app-yellow: 204 204 0;
     --app-green: 0 139 0;
     --app-white: 248 250 253;
@@ -15,16 +16,17 @@
   margin-inline: auto;
 }
    
-header {
+header, main, footer {
   background-color: rgb(var(--app-white));
+}
+
+header {
   height: var(--app-header-height);
   text-align: center;
   line-height: var(--app-header-height);
+  border-bottom: 0.1px solid rgb(var(--app-gray-dark));
 }
 
-/* main {
-  height: calc(100vh - var(--app-header-height) - var(--app-footer-height));
-} */
 
 .game {
   display: grid;
@@ -38,7 +40,7 @@ header {
 }
 
 .input-box {
-  --app-box-side: 100px;
+  --app-box-side: 75px;
   height: var(--app-box-side);
   width: var(--app-box-side);
   border: 1px solid black;
