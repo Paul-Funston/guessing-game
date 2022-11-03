@@ -53,17 +53,40 @@ function makeGuess(n) {
 keyNums.forEach(num => {
   onEvent('click', num, function() {
     makeGuess(num.value);
+    displayGuess();
   })
 });
 
 onEvent('click', clear, function() {
   curGuess = '';
   console.log(curGuess);
+  displayGuess();
 
-})
+});
 
 onEvent('click', backSpace, function() {
   let guessLength = curGuess.length -1;
   curGuess = curGuess.slice(0, guessLength)
   console.log(curGuess);
-})
+  displayGuess();
+
+});
+
+const guessRow = select('.row');
+const guessDigits = guessRow.childNodes;
+const digits = Object.values(guessDigits);
+const actualDigits = digits.filter(digit => digit.nodeName !== '#text') ;
+
+console.log(actualDigits);
+
+function displayGuess() {
+  for (let i = 0; i < curGuess.length; i++) {
+    actualDigits[i].innerHTML = curGuess[i];
+  }
+
+};
+
+
+
+
+
