@@ -28,6 +28,42 @@ let codeNum = '';
 
 function makeCode() {
   while (codeNum.length < 4)
-    codeNum += toString(numFrom(0, 9));
+    codeNum += numFrom(0, 9).toString();
 }
 
+window.addEventListener('load', () => {
+  makeCode();
+});
+
+const keypad = select(".keypad");
+const keyNums = document.querySelectorAll('.key-num');
+const backSpace = select('.back');
+const clear = select('.clear');
+const submitGuess = select('.guess');
+const prevGuess = [];
+let curGuess = '';
+
+
+function makeGuess(n) {
+  if (curGuess.length < 4)
+    curGuess += n.toString(); 
+    console.log(curGuess);
+}
+
+keyNums.forEach(num => {
+  onEvent('click', num, function() {
+    makeGuess(num.value);
+  })
+});
+
+onEvent('click', clear, function() {
+  curGuess = '';
+  console.log(curGuess);
+
+})
+
+onEvent('click', backSpace, function() {
+  let guessLength = curGuess.length -1;
+  curGuess = curGuess.slice(0, guessLength)
+  console.log(curGuess);
+})
