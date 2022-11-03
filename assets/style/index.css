@@ -1,0 +1,65 @@
+@import './reset.css';
+
+:root {
+    --app-gray: 40 40 40;
+    --app-yellow: 204 204 0;
+    --app-green: 0 139 0;
+    --app-white: 248 250 253;
+
+    --app-header-height: 100px;
+    --app-footer-height: 150px;
+   }
+
+.container {
+  width: min(100% - 30px, 1080px);
+  margin-inline: auto;
+}
+   
+header {
+  background-color: rgb(var(--app-white));
+  height: var(--app-header-height);
+  text-align: center;
+  line-height: var(--app-header-height);
+}
+
+/* main {
+  height: calc(100vh - var(--app-header-height) - var(--app-footer-height));
+} */
+
+.game {
+  display: grid;
+  height: calc(100vh - var(--app-header-height) - var(--app-footer-height));
+  place-items: center;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.input-box {
+  --app-box-side: 100px;
+  height: var(--app-box-side);
+  width: var(--app-box-side);
+  border: 1px solid black;
+}
+
+
+footer {
+  height: var(--app-footer-height);
+  display: grid;
+  place-items: center;
+}
+
+.keypad {
+  --app-box-side: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, var(--app-box-side));
+  gap: 10px;
+  
+}
+
+.play-again {
+  position: fixed;
+  display: none;
+}
