@@ -6,6 +6,7 @@
     Code-Breaker
 */
 
+// util functions
 function onEvent(event, selector, callback) {
     return selector.addEventListener(event, callback);
 }
@@ -31,7 +32,7 @@ function isNumber(input) {
 }
 
 
-
+// Make the Number to be found
 let codeNum = '';
 
 function makeCode() {
@@ -45,7 +46,7 @@ window.addEventListener('load', () => {
   makeCode();
 });
 
-
+// Testing input and creating a history of guesses
 const prevGuess = [];
 let curGuess = '';
 const guessNum = select('.guess-num');
@@ -64,25 +65,26 @@ onEvent('click', makeGuess, () => {
       count++;
       guess = parseInt(a);  
       if (guess === codeNum) {
-          feedback.innerText = `You got it in ${count} attempts! Try again?`;
+          feedback.innerText = `You got it!`;
           addHistory(guess);
-          count = 1;
-          // codeNum = '';
-          // makeCode();
-          // numberOne.value = '';
+          startOver(true);
+
 
       } else if (guess > codeNum) {
-          feedback.innerText = `Too Big! Try a smaller number`;
+          feedback.innerText = `Too Big! ${10 - count} tries left`;
           addHistory(guess);
       } else {
-          feedback.innerText = `Too Small! Try a bigger number`;
+          feedback.innerText = `Too Small! ${10 - count} tries remain`;
           addHistory(guess);
 
       }
 
   } else 
-  feedback.innerText = `Please enter valid numbers`;
+  feedback.innerText = `Please enter a valid number`;
   
+  if (count === 10)
+    startOver();
+
 });
 
 function addHistory(guess) {
@@ -105,7 +107,46 @@ function addHistory(guess) {
   console.log(div);
 }
 
+// Reset button and restart game popup
+const confirmRestart = select('.restart');
+const denyRestart = select('.close')
+const retry = select ('.reset');
+const playAgain = select('.play-again');
+const confirmBox = select('.confirm-box');
 
+
+onEvent('click', retry, () => {
+  startOver();
+})
+
+onEvent('click', confirmRestart, () => {
+  count = 0;
+  guessNum.value = '';
+  codeNum = '';
+  makeCode();
+  history.innerHTML = '';
+  feedback.innerText = '';
+  playAgain.classList.remove('active');
+});
+
+onEvent('click', denyRestart, () => {
+  playAgain.classList.remove('active');
+});
+
+function startOver(outcome = false) {
+  playAgain.classList.add('active');
+  let message = 'Are you sure?';
+
+  if (outcome)
+    message = "You Win!";
+
+
+  const h2 = document.createElement('h2');
+  h2.textContent = message;
+  confirmBox.prepend(h2);
+
+
+}
 
 
 
