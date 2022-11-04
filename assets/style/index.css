@@ -37,13 +37,23 @@ header {
 button, input[type="button"] {
   font-size: 16px;
   background-color: rgb(var(--app-magenta));
+  border: 1px solid rgb(var(--app-magenta));
   border-radius: 40px;
   padding: 10px;
+}
+
+button:hover, input[type="button"]:hover {
+background-color: rgb(var(--app-magenta) / 0.5);
 }
 
 button.close {
   background-color: rgb(var(--app-gray-light));
 }
+
+button.close:hover {
+  background-color: rgb(var(--app-gray-light) / 0.5);
+}
+
 
 
 
@@ -51,10 +61,15 @@ button.close {
 /*
   Game 
 */
+
 .game {
+  --app-form-height: var(--app-header-height);
+
   display: grid;
+  grid-template-columns: minmax(auto, 1fr);
+  grid-template-rows: minmax(80%, 6fr) 1fr;
   height: calc(100vh - var(--app-header-height));
-  place-items: center;
+  justify-items: center;  
 }
 
 .row {
@@ -74,11 +89,14 @@ i.green {
   color: rgb(var(--app-green));
 }
 
-.input-box {
-  --app-box-side: 75px;
-  height: var(--app-box-side);
-  width: var(--app-box-side);
-  border: 1px solid black;
+.history {
+  display: grid;
+  place-items: center;
+  height: calc(100vh - var(--app-header-height) - var(--app-form-height));
+}
+
+form {
+  height: var(--app-form-height)
 }
 
 

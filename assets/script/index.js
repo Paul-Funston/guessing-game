@@ -67,7 +67,7 @@ onEvent('click', makeGuess, () => {
           feedback.innerText = `You got it!`;
           addHistory(guess);
           victory = true;
-          startOver(victory);
+          askStartOver(victory);
 
       } else if (guess > codeNum) {
           feedback.innerText = `Too Big! ${10 - count} tries left`;
@@ -83,7 +83,7 @@ onEvent('click', makeGuess, () => {
   
   if (count >= 10) {
     addHistory(codeNum)
-    startOver();
+    askStartOver();
   }
 
 });
@@ -127,25 +127,18 @@ const confirmBox = select('.confirm-box');
 const toDelete = document.querySelectorAll('.delete-me');
 
 onEvent('click', retry, () => {
-  startOver(victory);
+  askStartOver(victory);
 })
 
 onEvent('click', confirmRestart, () => {
-  count = 0;
-  guessNum.value = '';
-  codeNum = '';
-  makeCode();
-  history.innerHTML = '';
-  feedback.innerText = '';
-  playAgain.classList.remove('active');
-  victory = false;
+  restart();
 });
 
 onEvent('click', denyRestart, () => {
   playAgain.classList.remove('active');
 });
 
-function startOver(outcome = false) {
+function askStartOver(outcome = false) {
   const toDelete = document.querySelectorAll('.delete-me');
   toDelete.forEach(item => {
     item.remove();
@@ -175,6 +168,16 @@ function startOver(outcome = false) {
   confirmBox.prepend(h2);
 }
 
+function restart() {
+  count = 0;
+  guessNum.value = '';
+  codeNum = '';
+  makeCode();
+  history.innerHTML = '';
+  feedback.innerText = 'Guess a number from 1-999';
+  playAgain.classList.remove('active');
+  victory = false;
+}
 
 
 
