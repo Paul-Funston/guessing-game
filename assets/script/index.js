@@ -34,6 +34,7 @@ function isNumber(input) {
 
 // Make the Number to be found
 let codeNum = '';
+let victory = true;
 
 function makeCode() {
   while (codeNum.length < 3)
@@ -55,8 +56,6 @@ const feedback = select('.feedback');
 const history = select('.guess-hist')
 let count = 0;
 
-console.log(makeGuess);
-
 onEvent('click', makeGuess, () => {
   let a = guessNum.value;
   let guess = 0;
@@ -67,7 +66,8 @@ onEvent('click', makeGuess, () => {
       if (guess === codeNum) {
           feedback.innerText = `You got it!`;
           addHistory(guess);
-          startOver(true);
+          victory = true;
+          startOver(victory);
 
 
       } else if (guess > codeNum) {
@@ -80,9 +80,9 @@ onEvent('click', makeGuess, () => {
       }
 
   } else 
-  feedback.innerText = `Please enter a valid number`;
+  feedback.innerText = `Enter a valid number`;
   
-  if (count === 10) {
+  if (count >= 10) {
     addHistory(codeNum)
     startOver();
   }
@@ -103,10 +103,20 @@ function addHistory(guess) {
     arrow.classList.add("fa-arrow-up");
   if (guess === parseInt(codeNum))
     arrow.classList.add("fa-circle-check");
-  div.append(arrow);
 
+  if (proximity(guess) < 10)
+    arrow.classList.add('green');
+  if (proximity(guess) < 100)
+    arrow.classList.add('yellow');
+  if (proximity(guess) >= 100)
+    arrow.classList.add('red');
+
+  div.append(arrow);
   history.append(div);
-  console.log(div);
+}
+
+function proximity(guess, target = codeNum) {
+  return Math.abs(target - guess);
 }
 
 // Reset button and restart game popup
@@ -115,10 +125,10 @@ const denyRestart = select('.close')
 const retry = select ('.reset');
 const playAgain = select('.play-again');
 const confirmBox = select('.confirm-box');
-
+const toDelete = document.querySelectorAll('.delete-me');
 
 onEvent('click', retry, () => {
-  startOver();
+  startOver(victory);
 })
 
 onEvent('click', confirmRestart, () => {
@@ -136,6 +146,11 @@ onEvent('click', denyRestart, () => {
 });
 
 function startOver(outcome = false) {
+  const toDelete = document.querySelectorAll('.delete-me');
+  toDelete.forEach(item => {
+    item.remove();
+  });
+
   playAgain.classList.add('active');
   let message = 'Are you sure?';
 
@@ -144,9 +159,19 @@ function startOver(outcome = false) {
 
 
   const h2 = document.createElement('h2');
-  h2.textContent = message;
-  confirmBox.prepend(h2);
 
+  h2.classList.add('delete-me');
+  h2.textContent = message;
+
+  if (count === 10) {
+    let messageTwo = `The number was ${codeNum}`;
+    let p = document.createElement('p');
+    p.textContent = messageTwo;
+    p.classList.add('delete-me');
+    confirmBox.prepend(p);
+  }
+
+  confirmBox.prepend(h2);
 
 }
 
