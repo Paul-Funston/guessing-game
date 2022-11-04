@@ -47,11 +47,12 @@ background-color: rgb(var(--app-magenta) / 0.5);
 }
 
 button.close {
-  background-color: rgb(var(--app-gray-light));
+  border: 1px solid rgb(var(--app-cyan));
+  background-color: rgb(var(--app-cyan));
 }
 
 button.close:hover {
-  background-color: rgb(var(--app-gray-light) / 0.5);
+  background-color: rgb(var(--app-cyan) / 0.5);
 }
 
 
@@ -63,12 +64,12 @@ button.close:hover {
 */
 
 .game {
-  --app-form-height: var(--app-header-height);
+  --app-form-height: 20vh;
 
-  margin-top: 20px;
+  padding: 20px 0;
   display: grid;
   grid-template-columns: minmax(auto, 1fr);
-  grid-template-rows: minmax(80%, 6fr) 1fr;
+  grid-template-rows: 6fr 1fr;
   height: calc(100vh - var(--app-header-height));
   justify-items: center;  
   text-align: center;
@@ -94,11 +95,16 @@ i.green {
 .history {
   display: grid;
   place-items: center;
-  height: calc(100vh - var(--app-header-height) - var(--app-form-height));
 }
 
-form {
-  height: var(--app-form-height)
+.guess-history p {
+  font-size: 20px;
+}
+
+
+
+form p {
+  margin: 20px 0;
 }
 
 form input {
@@ -118,7 +124,7 @@ form input[type="text"]:focus {
 }
 
 form input + input {
-  margin-left: 10px;
+  margin: 0 0 20px 10px;
 }
 
 
@@ -161,6 +167,7 @@ div.active {
 
 .reset {
   position: fixed;
-  top: 20px;
+  top: 29px;
   right: 20px;
 }
+
