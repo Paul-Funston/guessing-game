@@ -69,7 +69,6 @@ i.green {
 
   display: grid;
   place-items: center;
-
   position: fixed;
   visibility: none;
   opacity: 0;
@@ -87,6 +86,12 @@ div.active {
   height: 150px;
   width: 300px;
   background-color: rgb(var(--app-gray-light));
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .reset {

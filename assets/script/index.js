@@ -34,7 +34,7 @@ function isNumber(input) {
 
 // Make the Number to be found
 let codeNum = '';
-let victory = true;
+let victory = false;
 
 function makeCode() {
   while (codeNum.length < 3)
@@ -68,7 +68,6 @@ onEvent('click', makeGuess, () => {
           addHistory(guess);
           victory = true;
           startOver(victory);
-
 
       } else if (guess > codeNum) {
           feedback.innerText = `Too Big! ${10 - count} tries left`;
@@ -139,6 +138,7 @@ onEvent('click', confirmRestart, () => {
   history.innerHTML = '';
   feedback.innerText = '';
   playAgain.classList.remove('active');
+  victory = false;
 });
 
 onEvent('click', denyRestart, () => {
@@ -152,27 +152,27 @@ function startOver(outcome = false) {
   });
 
   playAgain.classList.add('active');
-  let message = 'Are you sure?';
+  let message = 'Restart';
+  let messageTwo = 'Are you sure?';
 
-  if (outcome)
+  if (outcome) {
     message = "You Win!";
-
-
-  const h2 = document.createElement('h2');
-
-  h2.classList.add('delete-me');
-  h2.textContent = message;
-
-  if (count === 10) {
-    let messageTwo = `The number was ${codeNum}`;
-    let p = document.createElement('p');
-    p.textContent = messageTwo;
-    p.classList.add('delete-me');
-    confirmBox.prepend(p);
+    messageTwo = 'Play again?';
   }
 
-  confirmBox.prepend(h2);
+  if (count >= 10) {
+      message = "Try again?";
+      messageTwo = `The number was ${codeNum}`;
+    }
 
+  const h2 = document.createElement('h2');
+  h2.classList.add('delete-me');
+  h2.textContent = message;
+  let p = document.createElement('p');
+  p.textContent = messageTwo;
+  p.classList.add('delete-me');
+  confirmBox.prepend(p);
+  confirmBox.prepend(h2);
 }
 
 
