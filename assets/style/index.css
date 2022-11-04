@@ -3,9 +3,12 @@
 :root {
     --app-gray-dark: 40 40 40;
     --app-gray-light: 140 140 140;
-    --app-yellow: 204 204 0;
-    --app-green: 0 139 0;
+    --app-yellow: 219 201 112;
+    --app-green: 130 219 112;
+    --app-red: 219 112 130;
     --app-white: 248 250 253;
+    --app-magenta: 201 112 219;
+    --app-cyan: 112 219 201;
 
     --app-header-height: 100px;
     --app-footer-height: 150px;
@@ -16,6 +19,10 @@
   margin-inline: auto;
 }
    
+/*
+  General Layout
+*/
+
 header, main {
   background-color: rgb(var(--app-white));
 }
@@ -27,7 +34,23 @@ header {
   border-bottom: 0.1px solid rgb(var(--app-gray-dark));
 }
 
+button, input[type="button"] {
+  font-size: 16px;
+  background-color: rgb(var(--app-magenta));
+  border-radius: 40px;
+  padding: 10px;
+}
 
+button.close {
+  background-color: rgb(var(--app-gray-light));
+}
+
+
+
+
+/*
+  Game 
+*/
 .game {
   display: grid;
   height: calc(100vh - var(--app-header-height));
@@ -40,15 +63,15 @@ header {
 }
 
 i.red {
-  color: red;
+  color: rgb(var(--app-red));
 }
 
 i.yellow {
-  color: yellow;
+  color: rgb(var(--app-yellow));
 }
 
 i.green {
-  color: green;
+  color: rgb(var(--app-green));
 }
 
 .input-box {
@@ -59,7 +82,9 @@ i.green {
 }
 
 
-
+/*
+  Reset Overlay
+*/
 
 .play-again {
   height: 100vh;
