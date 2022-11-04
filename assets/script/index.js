@@ -82,8 +82,10 @@ onEvent('click', makeGuess, () => {
   } else 
   feedback.innerText = `Please enter a valid number`;
   
-  if (count === 10)
+  if (count === 10) {
+    addHistory(codeNum)
     startOver();
+  }
 
 });
 
